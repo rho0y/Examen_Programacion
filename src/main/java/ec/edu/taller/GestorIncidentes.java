@@ -68,9 +68,7 @@ public class GestorIncidentes  extends IncidenteSeguridad{
     }
 
     public int consultarEspaciosDisponibles() {
-        int disponibilidad= capacidadMaxima- colaIncidentes.size();
-        if (disponibilidad==)
-        return 0;
+        return capacidadMaxima- colaIncidentes.size();
     }
 
     public List<IncidenteSeguridad> listarIncidentes() {
