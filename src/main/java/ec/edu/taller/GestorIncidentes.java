@@ -1,5 +1,6 @@
 package ec.edu.taller;
 //Cambios
+import javax.swing.*;
 import java.util.PriorityQueue;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,16 +20,25 @@ public class GestorIncidentes  extends IncidenteSeguridad{
         this.capacidadMaxima = 5;
     }
 
-    public boolean registrarIncidente(IncidenteSeguridad incidente, String codigo, String prioridad) throws Exception{
-        if(incidente==null || colaIncidentes.isEmpty())
-        return false;
-        if (codigo==null || codigo.trim().isEmpty()){
+    public boolean registrarIncidente(IncidenteSeguridad incidente, String codigo, String prioridad, String tipo, String estado) throws Exception {
+        if (codigo == null || codigo.trim().isEmpty()) {
+          return false;
+        }
+        if (colaIncidentes.size() >= capacidadMaxima) {
             return false;
         }
-        if(colaIncidentes.stream().anyMatch(p->p.getCodigo().equals(codigo))){
-            throw new Exception("No se pueden ingresar incidentes con el mismo código");
+        if (codigo == null || codigo.trim().isEmpty()) {
             return false;
         }
+        if (prioridad==null || prioridad.trim().isEmpty()){
+            return false;
+        }
+        if (colaIncidentes.stream().anyMatch(p -> p.getCodigo().equals(codigo))) {
+            return false;
+        }
+        colaIncidentes.offer(new IncidenteSeguridad(codigo, prioridad, tipo, estado));
+        JOptionPane.showMessageDialog(null, "Incidente refistrado exitosamente");
+        return true;
     }
 
     public boolean existeIncidente(String codigo) throws Exception{
@@ -39,7 +49,9 @@ public class GestorIncidentes  extends IncidenteSeguridad{
     }
 
     public IncidenteSeguridad consultarSiguienteIncidente() {
-        // TODO: consultar sin eliminar
+        if(colaIncidentes.isEmpty()){
+          return null;
+        }
         return null;
     }
 
@@ -56,7 +68,8 @@ public class GestorIncidentes  extends IncidenteSeguridad{
     }
 
     public int consultarEspaciosDisponibles() {
-        // TODO: retornar capacidad disponible
+        int disponibilidad= capacidadMaxima- colaIncidentes.size();
+        if (disponibilidad==)
         return 0;
     }
 
